@@ -74,11 +74,6 @@ static const uint8_t num_DSM_channels = 6; //If using DSM RX, change this to mat
 #endif
 
 #if defined USE_MPU6050_I2C
-  #include "src/MPU6050/MPU6050.h"
-  MPU6050 mpu6050;
-#elif defined USE_MPU9250_SPI
-  #include "src/MPU9250/MPU9250.h"
-  MPU9250 mpu9250(SPI2,36);
 #else
   #error No MPU defined... 
 #endif
@@ -470,19 +465,6 @@ void IMUinit() {
     Wire.begin();
     Wire.setClock(1000000); //Note this is 2.5 times the spec sheet 400 kHz max...
     
-    mpu6050.initialize();
-    
-    if (mpu6050.testConnection() == false) {
-      Serial.println("MPU6050 initialization unsuccessful");
-      Serial.println("Check MPU6050 wiring or try cycling power");
-      while(1) {}
-    }
-
-    //From the reset state all registers should be 0x00, so we should be at
-    //max sample rate with digital low pass filter(s) off.  All we need to
-    //do is set the desired fullscale ranges
-    mpu6050.setFullScaleGyroRange(GYRO_SCALE);
-    mpu6050.setFullScaleAccelRange(ACCEL_SCALE);
     
   #elif defined USE_MPU9250_SPI
     int status = mpu9250.begin();    
@@ -520,7 +502,6 @@ void getIMUdata() {
   int16_t AcX,AcY,AcZ,GyX,GyY,GyZ,MgX,MgY,MgZ;
 
   #if defined USE_MPU6050_I2C
-    mpu6050.getMotion6(&AcX, &AcY, &AcZ, &GyX, &GyY, &GyZ);
   #elif defined USE_MPU9250_SPI
     mpu9250.getMotion9(&AcX, &AcY, &AcZ, &GyX, &GyY, &GyZ, &MgX, &MgY, &MgZ);
   #endif
@@ -593,7 +574,6 @@ void calculate_IMU_error() {
   int c = 0;
   while (c < 12000) {
     #if defined USE_MPU6050_I2C
-      mpu6050.getMotion6(&AcX, &AcY, &AcZ, &GyX, &GyY, &GyZ);
     #elif defined USE_MPU9250_SPI
       mpu9250.getMotion9(&AcX, &AcY, &AcZ, &GyX, &GyY, &GyZ, &MgX, &MgY, &MgZ);
     #endif
