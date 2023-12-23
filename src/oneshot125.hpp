@@ -22,6 +22,7 @@
 #include <PWMServo.h> 
 
 #include <stdint.h>
+#include <vector>
 
 class OneShot125 {
 
@@ -29,13 +30,13 @@ class OneShot125 {
 
         OneShot125(const uint8_t pin, const uint32_t loopFrequency=2000)
         {
-            _pin = pin;
+            _pins.push_back(pin);
             _loopFrequency = loopFrequency;
         }
 
         void arm(void) 
         {
-            pinMode(_pin, OUTPUT);
+            pinMode(_pins[0], OUTPUT);
 
             for (uint8_t i=0; i<50; i++) {
                 _set(125);
@@ -70,12 +71,12 @@ class OneShot125 {
         }
 
 
-        uint8_t _pin;
+        std::vector<uint8_t> _pins;
         uint8_t _loopFrequency;
 
         void _set(const uint8_t pulseWidth) 
         {
-            digitalWrite(_pin, HIGH);
+            digitalWrite(_pins[0], HIGH);
 
             auto pulseStart = micros();
 
@@ -83,7 +84,7 @@ class OneShot125 {
 
                 if (pulseWidth <= micros() - pulseStart) {
 
-                    digitalWrite(_pin, LOW);
+                    digitalWrite(_pins[0], LOW);
 
                     break;
 
