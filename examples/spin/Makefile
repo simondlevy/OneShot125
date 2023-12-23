@@ -2,7 +2,7 @@ SKETCH = spin
 
 PORT = /dev/ttyACM0
 
-LIB = $(HOME)/Documents/Arduino/libraries
+LIB = ../..
 
 BOARD = teensy:avr:teensy40
 

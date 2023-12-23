@@ -1,59 +1,4 @@
-#include <PWMServo.h> 
-
-#include <stdint.h>
-
-
-class OneShot125 {
-
-    public:
-
-        OneShot125(const uint8_t pin)
-        {
-            _pin = pin;
-        }
-
-        void arm(void) 
-        {
-            pinMode(_pin, OUTPUT);
-
-            for (uint8_t i=0; i<50; i++) {
-                set(125);
-                delay(2);
-            }
-        }
-
-        void set(const uint8_t pulseWidth) 
-        {
-            if (pulseWidth >= 125 && pulseWidth <= 250) {
-                _set(pulseWidth);
-            }
-        }
-
-    private:
-
-        uint8_t _pin;
-
-        void _set(const uint8_t pulseWidth) 
-        {
-            digitalWrite(_pin, HIGH);
-
-            auto pulseStart = micros();
-
-            while (true) { 
-
-                if (pulseWidth <= micros() - pulseStart) {
-
-                    digitalWrite(_pin, LOW);
-
-                    break;
-
-                }
-            }
-        }
-
-};
-
-///////////////////////////////////////////////////////////
+#include <oneshot125.hpp>
 
 static const uint8_t ESC_PIN = 0;
 
@@ -62,11 +7,12 @@ static auto esc = OneShot125(ESC_PIN);
 static void loopDelay(const uint32_t freq, const uint32_t loopStartUsec) 
 {
 
-    float invFreq = 1.0/freq*1000000.0;
-    unsigned long checker = micros();
+    auto invFreq = 1.0/freq*1000000.0;
 
-    while (invFreq > (checker - loopStartUsec)) {
-        checker = micros();
+    auto time = micros();
+
+    while (invFreq > (time - loopStartUsec)) {
+        time = micros();
     }
 }
 
