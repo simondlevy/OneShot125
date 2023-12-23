@@ -28,6 +28,15 @@ class OneShot125 {
 
     public:
 
+        OneShot125(const std::vector<uint8_t> pins, const uint32_t loopFrequency=2000)
+        {
+            for (auto pin : _pins) {
+                _pins.push_back(pin);
+            }
+
+            _loopFrequency = loopFrequency;
+        }
+
         OneShot125(const uint8_t pin, const uint32_t loopFrequency=2000)
         {
             _pins.push_back(pin);
@@ -37,12 +46,13 @@ class OneShot125 {
         void arm(void) 
         {
             for (auto pin : _pins) {
-                pinMode(pin, OUTPUT);
-            }
 
-            for (uint8_t i=0; i<50; i++) {
-                _set(125);
-                delay(2);
+                pinMode(pin, OUTPUT);
+
+                for (uint8_t i=0; i<50; i++) {
+                    digitalWrite(pin, LOW);
+                    delay(2);
+                }
             }
         }
 
@@ -63,15 +73,6 @@ class OneShot125 {
         }
 
     private:
-
-        static bool tick(
-                const uint32_t usec_curr, 
-                const uint32_t usec_prev, 
-                const uint32_t freq)
-        {
-            return (usec_curr - usec_prev) > 1.0f / freq * 1e6;
-        }
-
 
         std::vector<uint8_t> _pins;
         uint8_t _loopFrequency;
