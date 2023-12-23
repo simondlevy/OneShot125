@@ -2,7 +2,7 @@
 
 static const uint8_t PIN = 0;
 
-static const uint32_t FREQ = 2000;
+static const uint32_t LOOP_FREQUENCY = 2000;
 
 static const uint8_t LOW_PULSE_WIDTH = 170;
 
@@ -56,7 +56,7 @@ void loop()
 
     auto time = micros();
 
-    while ((time - loopStartUsec) < 1.0/FREQ*1000000.0) {
+    while ((time - loopStartUsec) < 1.0f / LOOP_FREQUENCY * 1e6) {
         time = micros();
     }
 
@@ -66,10 +66,9 @@ void loop()
 
     else {
         static uint32_t prev;
-        auto msec = millis();
-        if (msec - prev > 100) {
+        if (time - prev > 100'000) {
             pulseWidth += pulseIncrement;
-            prev = msec;
+            prev = time;
             if (pulseWidth == 250) {
                 pulseIncrement = -1;
             }
