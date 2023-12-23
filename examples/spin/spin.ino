@@ -53,34 +53,6 @@ class OneShot125 {
 
 };
 
-static const uint8_t m1Pin = 0;
-
-static void set(const uint8_t pulseWidth) 
-{
-    digitalWrite(m1Pin, HIGH);
-
-    auto pulseStart = micros();
-
-    while (true) { 
-
-        if (pulseWidth <= micros() - pulseStart) {
-
-            digitalWrite(m1Pin, LOW);
-
-            break;
-
-        }
-    }
-}
-
-static void arm() 
-{
-    for (int i = 0; i <= 50; i++) {
-        set(125);
-        delay(2);
-    }
-}
-
 ///////////////////////////////////////////////////////////
 
 static const uint8_t ESC_PIN = 0;
@@ -112,7 +84,7 @@ void loop()
 
     const auto loopStartUsec = micros();      
 
-    set(pulseWidth); 
+    esc.set(pulseWidth); 
 
     loopDelay(2000, loopStartUsec); 
 
