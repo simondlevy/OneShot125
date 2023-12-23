@@ -6,26 +6,23 @@ static const uint8_t m1Pin = 0;
 
 static void set(const uint8_t pulseWidth) 
 {
-  int wentLow = 0;
-  int flagM1 = 0;
-
   digitalWrite(m1Pin, HIGH);
 
   auto pulseStart = micros();
 
-  while (wentLow < 1) { 
+  while (true) { 
 
-    auto timer = micros();
+    if (pulseWidth <= micros() - pulseStart) {
 
-    if ((pulseWidth <= timer - pulseStart) && (flagM1==0)) {
       digitalWrite(m1Pin, LOW);
-      wentLow = wentLow + 1;
-      flagM1 = 1;
+
+      break;
+
     }
   }
 }
 
-static void armMotors() 
+static void arm() 
 {
   for (int i = 0; i <= 50; i++) {
     set(125);
@@ -56,7 +53,7 @@ void setup()
 
   m1_command_PWM = 125; 
 
-  armMotors(); 
+  arm(); 
 }
 
 void loop() 
