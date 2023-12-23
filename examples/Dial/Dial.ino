@@ -21,18 +21,14 @@
 
 static const uint8_t INPUT_PIN = A9;
 static const uint8_t MOTOR_PIN = 0;
+static const uint8_t LOW_PULSE_WIDTH = 170;
 
 static auto esc = OneShot125(MOTOR_PIN);
 
-static uint16_t getInput(void)
-{
-    return analogRead(INPUT_PIN);
-}
-
 void setup() 
 {
-    // Spin-wait until potentiometer reads zero
-    while (getInput() > 0) {
+    while (analogRead(INPUT_PIN) > 0) {
+        // Wait until potentiometer reads zero
     }
 
     esc.arm(); 
@@ -40,6 +36,5 @@ void setup()
 
 void loop() 
 {
-    // Serial.println(map(getInput(), 0, 1024, 125, 250));
-    esc.set(map(getInput(), 0, 1024, 125, 250));
+    esc.set(map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
 }
