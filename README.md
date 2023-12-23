@@ -42,4 +42,4 @@ void loop()
 
 If you dont' have a potentiometer (variable resitor with dial) as shown in the
 video, you can try this [sketch](https://github.com/simondlevy/TeensyOneShot125/blob/main/examples/OnOff/OnOff.ino), 
-which automatically spins the motors at different RPMs.
+which prompts for you starting and stopping the motor and automatically spins it at different RPMs.
