@@ -3,17 +3,19 @@
 #include <stdint.h>
 
 
-class OneShot125Motor {
+class OneShot125 {
 
     public:
 
-        OneShot125Motor(const uint8_t pin)
+        OneShot125(const uint8_t pin)
         {
             _pin = pin;
         }
 
-        void arm() 
+        void arm(void) 
         {
+            pinMode(_pin, OUTPUT);
+
             for (uint8_t i=0; i<50; i++) {
                 set(125);
                 delay(2);
@@ -81,6 +83,10 @@ static void arm()
 
 ///////////////////////////////////////////////////////////
 
+static const uint8_t ESC_PIN = 0;
+
+static auto esc = OneShot125(ESC_PIN);
+
 static void loopDelay(const uint32_t freq, const uint32_t loopStartUsec) 
 {
 
@@ -92,34 +98,31 @@ static void loopDelay(const uint32_t freq, const uint32_t loopStartUsec)
     }
 }
 
-static uint8_t m1_command_PWM;
+static uint8_t pulseWidth;
 
 void setup() 
 {
-    pinMode(m1Pin, OUTPUT);
+    esc.arm(); 
 
-    delay(15);
-
-    m1_command_PWM = 125; 
-
-    arm(); 
+    pulseWidth = 125;
 }
 
 void loop() 
 {
+
     const auto loopStartUsec = micros();      
 
-    set(m1_command_PWM); 
+    set(pulseWidth); 
 
     loopDelay(2000, loopStartUsec); 
 
     static uint32_t prev;
     auto msec = millis();
     if (msec - prev > 100) {
-        m1_command_PWM += 1;
+        pulseWidth += 1;
         prev = msec;
-        if (m1_command_PWM == 250) {
-            m1_command_PWM = 130;
+        if (pulseWidth == 250) {
+            pulseWidth = 130;
         }
     }
 }
