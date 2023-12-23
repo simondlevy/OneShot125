@@ -1,24 +1,14 @@
 #include <oneshot125.hpp>
 
-static const uint8_t ESC_PIN = 0;
+static const uint8_t PIN = 0;
 
-static auto esc = OneShot125(ESC_PIN);
+static const uint32_t FREQ = 2000;
 
-static void loopDelay(const uint32_t freq, const uint32_t loopStartUsec) 
-{
-
-    auto invFreq = 1.0/freq*1000000.0;
-
-    auto time = micros();
-
-    while (invFreq > (time - loopStartUsec)) {
-        time = micros();
-    }
-}
+static auto esc = OneShot125(PIN);
 
 static uint8_t pulseWidth;
 
-static int8_t direction;
+static int8_t pulseIncrement;
 
 static bool gotInput;
 
@@ -44,11 +34,11 @@ void setup()
 
     esc.arm(); 
 
-    Serial.println("Hit enter to stop ... ");
+    Serial.println("Hit Enter to stop ... ");
 
     pulseWidth = 125;
 
-    direction = +1;
+    pulseIncrement = +1;
 }
 
 void loop() 
@@ -57,7 +47,11 @@ void loop()
 
     esc.set(pulseWidth); 
 
-    loopDelay(2000, loopStartUsec); 
+    auto time = micros();
+
+    while ((time - loopStartUsec) < 1.0/FREQ*1000000.0) {
+        time = micros();
+    }
 
     if (gotInput) {
         pulseWidth = 125;
@@ -67,13 +61,13 @@ void loop()
         static uint32_t prev;
         auto msec = millis();
         if (msec - prev > 100) {
-            pulseWidth += direction;
+            pulseWidth += pulseIncrement;
             prev = msec;
             if (pulseWidth == 250) {
-                direction = -1;
+                pulseIncrement = -1;
             }
             if (pulseWidth == 125) {
-                direction = +1;
+                pulseIncrement = +1;
             }
         }
     }
