@@ -36,7 +36,9 @@ class OneShot125 {
 
         void arm(void) 
         {
-            pinMode(_pins[0], OUTPUT);
+            for (auto pin : _pins) {
+                pinMode(pin, OUTPUT);
+            }
 
             for (uint8_t i=0; i<50; i++) {
                 _set(125);
