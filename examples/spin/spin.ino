@@ -74,7 +74,20 @@ static uint8_t pulseWidth;
 
 void setup() 
 {
+    Serial.begin(115200);
+
     esc.arm(); 
+
+    while (true) {
+
+        Serial.println("Hit enter to begin ...");
+
+        if (Serial.available()) {
+            break;
+        }
+
+        delay(1000);
+    }
 
     pulseWidth = 125;
 }
