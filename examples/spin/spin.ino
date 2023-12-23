@@ -4,6 +4,8 @@ static const uint8_t PIN = 0;
 
 static const uint32_t LOOP_FREQUENCY = 2000;
 
+static const uint32_t UPDATE_FREQUENCY = 10;
+
 static const uint8_t LOW_PULSE_WIDTH = 170;
 
 static auto esc = OneShot125(PIN);
@@ -21,6 +23,14 @@ void serialEvent(void)
     }
 
     gotInput = true;
+}
+
+static bool tick(
+        const uint32_t usec_curr, 
+        const uint32_t usec_prev, 
+        const uint32_t freq)
+{
+    return (usec_curr - usec_prev) > 1.0f / freq * 1e6;
 }
 
 void setup() 
@@ -66,7 +76,7 @@ void loop()
 
     else {
         static uint32_t prev;
-        if (time - prev > 100'000) {
+        if (tick(time, prev, UPDATE_FREQUENCY)) { 
             pulseWidth += pulseIncrement;
             prev = time;
             if (pulseWidth == 250) {
