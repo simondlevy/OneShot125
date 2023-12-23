@@ -2,32 +2,81 @@
 
 #include <stdint.h>
 
+
+class OneShot125Motor {
+
+    public:
+
+        OneShot125Motor(const uint8_t pin)
+        {
+            _pin = pin;
+        }
+
+        void arm() 
+        {
+            for (uint8_t i=0; i<50; i++) {
+                set(125);
+                delay(2);
+            }
+        }
+
+        void set(const uint8_t pulseWidth) 
+        {
+            if (pulseWidth >= 125 && pulseWidth <= 250) {
+                _set(pulseWidth);
+            }
+        }
+
+    private:
+
+        uint8_t _pin;
+
+        void _set(const uint8_t pulseWidth) 
+        {
+            digitalWrite(_pin, HIGH);
+
+            auto pulseStart = micros();
+
+            while (true) { 
+
+                if (pulseWidth <= micros() - pulseStart) {
+
+                    digitalWrite(_pin, LOW);
+
+                    break;
+
+                }
+            }
+        }
+
+};
+
 static const uint8_t m1Pin = 0;
 
 static void set(const uint8_t pulseWidth) 
 {
-  digitalWrite(m1Pin, HIGH);
+    digitalWrite(m1Pin, HIGH);
 
-  auto pulseStart = micros();
+    auto pulseStart = micros();
 
-  while (true) { 
+    while (true) { 
 
-    if (pulseWidth <= micros() - pulseStart) {
+        if (pulseWidth <= micros() - pulseStart) {
 
-      digitalWrite(m1Pin, LOW);
+            digitalWrite(m1Pin, LOW);
 
-      break;
+            break;
 
+        }
     }
-  }
 }
 
 static void arm() 
 {
-  for (int i = 0; i <= 50; i++) {
-    set(125);
-    delay(2);
-  }
+    for (int i = 0; i <= 50; i++) {
+        set(125);
+        delay(2);
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -35,42 +84,42 @@ static void arm()
 static void loopDelay(const uint32_t freq, const uint32_t loopStartUsec) 
 {
 
-  float invFreq = 1.0/freq*1000000.0;
-  unsigned long checker = micros();
+    float invFreq = 1.0/freq*1000000.0;
+    unsigned long checker = micros();
 
-  while (invFreq > (checker - loopStartUsec)) {
-    checker = micros();
-  }
+    while (invFreq > (checker - loopStartUsec)) {
+        checker = micros();
+    }
 }
 
 static uint8_t m1_command_PWM;
 
 void setup() 
 {
-  pinMode(m1Pin, OUTPUT);
+    pinMode(m1Pin, OUTPUT);
 
-  delay(15);
+    delay(15);
 
-  m1_command_PWM = 125; 
+    m1_command_PWM = 125; 
 
-  arm(); 
+    arm(); 
 }
 
 void loop() 
 {
-  const auto loopStartUsec = micros();      
+    const auto loopStartUsec = micros();      
 
-  set(m1_command_PWM); 
+    set(m1_command_PWM); 
 
-  loopDelay(2000, loopStartUsec); 
+    loopDelay(2000, loopStartUsec); 
 
-  static uint32_t prev;
-  auto msec = millis();
-  if (msec - prev > 100) {
-      m1_command_PWM += 1;
-      prev = msec;
-      if (m1_command_PWM == 250) {
-          m1_command_PWM = 130;
-      }
-  }
+    static uint32_t prev;
+    auto msec = millis();
+    if (msec - prev > 100) {
+        m1_command_PWM += 1;
+        prev = msec;
+        if (m1_command_PWM == 250) {
+            m1_command_PWM = 130;
+        }
+    }
 }
