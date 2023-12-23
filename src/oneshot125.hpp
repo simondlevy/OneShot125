@@ -28,9 +28,10 @@ class OneShot125 {
 
     public:
 
-        OneShot125(const uint8_t pin)
+        OneShot125(const uint8_t pin, const uint32_t loopFrequency=2000)
         {
             _pin = pin;
+            _loopFrequency = loopFrequency;
         }
 
         void arm(void) 
@@ -46,13 +47,32 @@ class OneShot125 {
         void set(const uint8_t pulseWidth) 
         {
             if (pulseWidth >= 125 && pulseWidth <= 250) {
+
+                const auto loopStartUsec = micros();
+
                 _set(pulseWidth);
+
+                auto time = micros();
+
+                while ((time - loopStartUsec) < 1.0f / _loopFrequency * 1e6) {
+                    time = micros();
+                }
             }
         }
 
     private:
 
+        static bool tick(
+                const uint32_t usec_curr, 
+                const uint32_t usec_prev, 
+                const uint32_t freq)
+        {
+            return (usec_curr - usec_prev) > 1.0f / freq * 1e6;
+        }
+
+
         uint8_t _pin;
+        uint8_t _loopFrequency;
 
         void _set(const uint8_t pulseWidth) 
         {

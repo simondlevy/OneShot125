@@ -81,15 +81,9 @@ void setup()
 
 void loop() 
 {
-    const auto loopStartUsec = micros();      
-
-    esc.set(pulseWidth); 
-
     auto time = micros();
 
-    while ((time - loopStartUsec) < 1.0f / LOOP_FREQUENCY * 1e6) {
-        time = micros();
-    }
+    esc.set(pulseWidth); 
 
     if (gotInput) {
         pulseWidth = 125;
