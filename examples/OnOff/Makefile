@@ -1,4 +1,4 @@
-SKETCH = spin
+SKETCH = OnOff
 
 PORT = /dev/ttyACM0
 
