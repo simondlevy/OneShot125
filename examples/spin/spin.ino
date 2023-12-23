@@ -4,6 +4,8 @@ static const uint8_t PIN = 0;
 
 static const uint32_t FREQ = 2000;
 
+static const uint8_t LOW_PULSE_WIDTH = 170;
+
 static auto esc = OneShot125(PIN);
 
 static uint8_t pulseWidth;
@@ -25,14 +27,19 @@ void setup()
 {
     Serial.begin(115200);
 
+    Serial.println("Hit Enter to begin ...");
+
     while (!gotInput) {
-        Serial.println("Hit Enter to begin ...");
         delay(1000);
     }
 
     gotInput = false;
 
+    Serial.println("Arming ...");
+
     esc.arm(); 
+
+    delay(2000);
 
     Serial.println("Hit Enter to stop ... ");
 
@@ -66,7 +73,7 @@ void loop()
             if (pulseWidth == 250) {
                 pulseIncrement = -1;
             }
-            if (pulseWidth == 125) {
+            if (pulseWidth == LOW_PULSE_WIDTH) {
                 pulseIncrement = +1;
             }
         }
