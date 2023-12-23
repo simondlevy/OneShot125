@@ -46,14 +46,6 @@ void serialEvent(void)
     gotInput = true;
 }
 
-static bool tick(
-        const uint32_t usec_curr, 
-        const uint32_t usec_prev, 
-        const uint32_t freq)
-{
-    return (usec_curr - usec_prev) > 1.0f / freq * 1e6;
-}
-
 void setup() 
 {
     Serial.begin(115200);
@@ -90,8 +82,10 @@ void loop()
     }
 
     else {
+
         static uint32_t prev;
-        if (tick(time, prev, UPDATE_FREQUENCY)) { 
+
+        if ((time - prev) > 1.0f / UPDATE_FREQUENCY * 1e6) {
             pulseWidth += pulseIncrement;
             prev = time;
             if (pulseWidth == 250) {
