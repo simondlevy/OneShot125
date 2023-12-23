@@ -4,9 +4,7 @@
 
 static const uint8_t m1Pin = 0;
 
-static uint8_t m1_command_PWM;
-
-static void commandMotors() 
+static void set(const uint8_t pulseWidth) 
 {
   int wentLow = 0;
   int flagM1 = 0;
@@ -19,7 +17,7 @@ static void commandMotors()
 
     auto timer = micros();
 
-    if ((m1_command_PWM <= timer - pulseStart) && (flagM1==0)) {
+    if ((pulseWidth <= timer - pulseStart) && (flagM1==0)) {
       digitalWrite(m1Pin, LOW);
       wentLow = wentLow + 1;
       flagM1 = 1;
@@ -30,7 +28,7 @@ static void commandMotors()
 static void armMotors() 
 {
   for (int i = 0; i <= 50; i++) {
-    commandMotors();
+    set(125);
     delay(2);
   }
 }
@@ -47,6 +45,9 @@ static void loopDelay(const uint32_t freq, const uint32_t loopStartUsec)
     checker = micros();
   }
 }
+
+static uint8_t m1_command_PWM;
+
 void setup() 
 {
   pinMode(m1Pin, OUTPUT);
@@ -62,7 +63,7 @@ void loop()
 {
   const auto loopStartUsec = micros();      
 
-  commandMotors(); 
+  set(m1_command_PWM); 
 
   loopDelay(2000, loopStartUsec); 
 
