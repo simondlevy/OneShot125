@@ -20,30 +20,31 @@ static uint8_t pulseWidth;
 
 static int8_t direction;
 
-static bool prompt(const char * message)
+static bool gotInput;
+
+void serialEvent(void)
 {
-    static uint32_t prev;
-
-    auto msec = millis();
-
-    if (msec - prev > 1000) {
-        Serial.println(message);
-        prev = msec;
+    while (Serial.available()) {
+        Serial.read();
     }
 
-    return Serial.available() > 0;
+    gotInput = true;
 }
 
 void setup() 
 {
     Serial.begin(115200);
 
-    while (!prompt("Hit any key to begin ...")) {
+    while (!gotInput) {
+        Serial.println("Hit Enter to begin ...");
+        delay(1000);
     }
+
+    gotInput = false;
 
     esc.arm(); 
 
-    Serial.printf("Running\n");
+    Serial.println("Hit enter to stop ... ");
 
     pulseWidth = 125;
 
@@ -52,19 +53,17 @@ void setup()
 
 void loop() 
 {
-    static bool done;
-
     const auto loopStartUsec = micros();      
 
     esc.set(pulseWidth); 
 
     loopDelay(2000, loopStartUsec); 
 
-    //if (prompt("Hit any key to stop ...")) {
-    //    done = true;
-    //}
+    if (gotInput) {
+        pulseWidth = 125;
+    }
 
-    if (!done) {
+    else {
         static uint32_t prev;
         auto msec = millis();
         if (msec - prev > 100) {
