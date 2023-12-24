@@ -94,7 +94,7 @@ class OneShot125Motors {
                 const std::vector<uint8_t> pins, 
                 const uint32_t loopFrequency=2000)
         {
-            for (auto pin : _pins) {
+            for (auto pin : pins) {
                 _pins.push_back(pin);
             }
 
@@ -114,42 +114,9 @@ class OneShot125Motors {
             }
         }
 
-        void set(const uint8_t pulseWidth) 
-        {
-            if (pulseWidth >= 125 && pulseWidth <= 250) {
-
-                const auto loopStartUsec = micros();
-
-                _set(pulseWidth);
-
-                auto time = micros();
-
-                while ((time - loopStartUsec) < 1.0f / _loopFrequency * 1e6) {
-                    time = micros();
-                }
-            }
-        }
-
     private:
 
         std::vector<uint8_t> _pins;
+
         uint8_t _loopFrequency;
-
-        void _set(const uint8_t pulseWidth) 
-        {
-            digitalWrite(_pins[0], HIGH);
-
-            auto pulseStart = micros();
-
-            while (true) { 
-
-                if (pulseWidth <= micros() - pulseStart) {
-
-                    digitalWrite(_pins[0], LOW);
-
-                    break;
-
-                }
-            }
-        }
 };
