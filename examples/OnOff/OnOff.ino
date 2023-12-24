@@ -25,7 +25,7 @@ static const uint8_t PIN = 0;
 static const uint32_t UPDATE_FREQUENCY = 10;
 static const uint8_t LOW_PULSE_WIDTH = 170;
 
-static auto esc = OneShot125Motor(PIN);
+static auto motor = OneShot125Motor(PIN);
 
 static uint8_t pulseWidth;
 
@@ -56,7 +56,7 @@ void setup()
 
     Serial.println("Arming ...");
 
-    esc.arm(); 
+    motor.arm(); 
 
     delay(2000);
 
@@ -71,7 +71,7 @@ void loop()
 {
     auto time = micros();
 
-    esc.spin(pulseWidth); 
+    motor.spin(pulseWidth); 
 
     if (gotInput) {
         pulseWidth = 125;

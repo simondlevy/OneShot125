@@ -23,7 +23,7 @@ static const uint8\_t INPUT\_PIN = A9;
 static const uint8\_t MOTOR\_PIN = 0;
 static const uint8\_t LOW\_PULSE\_WIDTH = 170;
 
-static auto esc = OneShot125Motor(MOTOR\_PIN);
+static auto motor = OneShot125Motor(MOTOR\_PIN);
 
 void setup() 
 {
@@ -31,12 +31,12 @@ void setup()
         // Wait until potentiometer reads zero
     }
 
-    esc.arm(); 
+    motor.arm(); 
 }
 
 void loop() 
 {
-    esc.spin(map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
+    motor.spin(map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
 }
 ```
 

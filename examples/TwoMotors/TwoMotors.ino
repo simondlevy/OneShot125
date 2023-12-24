@@ -1,7 +1,5 @@
 /*
-   Simple motor spinning example using Teensy-OneShot125
-
-   Prompts for stopping and starting motor.
+   Spin motor using potentiometer dial
 
    This file is part of Teensy-OneShot125.
 
@@ -20,78 +18,27 @@
  */
 
 #include <oneshot125.hpp>
-
 #include <vector>
 
-static const std::vector<uint8_t> PINS{ 1, 2 };
-static const uint32_t UPDATE_FREQUENCY = 10;
+static const uint8_t INPUT_PIN = A9;
+
+static const std::vector<uint8_t> MOTOR_PINS = {0};
+
 static const uint8_t LOW_PULSE_WIDTH = 170;
 
-//static auto esc = OneShot125(PIN);
-
-static uint8_t pulseWidth;
-
-static int8_t pulseIncrement;
-
-static bool gotInput;
-
-void serialEvent(void)
-{
-    while (Serial.available()) {
-        Serial.read();
-    }
-
-    gotInput = true;
-}
+static auto motors = OneShot125Motors(MOTOR_PINS);
 
 void setup() 
 {
-    Serial.begin(115200);
-
-    Serial.println("Hit Enter to begin ...");
-
-    while (!gotInput) {
-        delay(1000);
+    while (analogRead(INPUT_PIN) > 0) {
     }
 
-    gotInput = false;
-
-    Serial.println("Arming ...");
-
-    //esc.arm(); 
-
-    delay(2000);
-
-    Serial.println("Hit Enter to stop ... ");
-
-    pulseWidth = 125;
-
-    pulseIncrement = +1;
+    motors.arm(); 
 }
 
 void loop() 
 {
-    auto time = micros();
+    motors.set(0, map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
 
-    //esc.set(pulseWidth); 
-
-    if (gotInput) {
-        pulseWidth = 125;
-    }
-
-    else {
-
-        static uint32_t prev;
-
-        if ((time - prev) > 1.0f / UPDATE_FREQUENCY * 1e6) {
-            pulseWidth += pulseIncrement;
-            prev = time;
-            if (pulseWidth == 250) {
-                pulseIncrement = -1;
-            }
-            if (pulseWidth == LOW_PULSE_WIDTH) {
-                pulseIncrement = +1;
-            }
-        }
-    }
+    motors.spin();
 }

@@ -51,7 +51,7 @@ class OneShot125Motor {
 
                 const auto loopStartUsec = micros();
 
-                _set(pulseWidth);
+                _spin(pulseWidth);
 
                 auto time = micros();
 
@@ -67,7 +67,7 @@ class OneShot125Motor {
 
         uint8_t _loopFrequency;
 
-        void _set(const uint8_t pulseWidth) 
+        void _spin(const uint8_t pulseWidth) 
         {
             digitalWrite(_pin, HIGH);
 
@@ -94,29 +94,102 @@ class OneShot125Motors {
                 const std::vector<uint8_t> pins, 
                 const uint32_t loopFrequency=2000)
         {
+            _pin = pins[0];
+            /*
             for (auto pin : pins) {
                 _pins.push_back(pin);
-            }
+                _pulseWidths.push_back(0);
+            }*/
 
             _loopFrequency = loopFrequency;
         }
 
         void arm(void) 
         {
-            for (auto pin : _pins) {
+            //for (auto pin : _pins) {
 
-                pinMode(pin, OUTPUT);
+                pinMode(_pin, OUTPUT);
 
                 for (uint8_t i=0; i<50; i++) {
-                    digitalWrite(pin, LOW);
+                    digitalWrite(_pin, LOW);
                     delay(2);
                 }
+            //}
+        }
+
+        void set(const uint8_t index, const uint8_t pulseWidth)
+        {
+            _pulseWidth = (pulseWidth >= 125 && pulseWidth <= 250) ? pulseWidth : 125;
+
+            /*
+            if (index < _pins.size()) {
+
+                _pins[index] = 
+                    pulseWidth >= 125 && pulseWidth <= 250 ? 
+                    pulseWidth : 
+                    125;
+            }*/
+        }
+
+        void spin(void)
+        {
+            const auto loopStartUsec = micros();
+
+            _spin(_pulseWidth);
+
+            auto time = micros();
+
+            while ((time - loopStartUsec) < 1.0f / _loopFrequency * 1e6) {
+                time = micros();
             }
+
+            /*
+            for (uint8_t k=0; k<_pins.size(); ++k) {
+
+                auto pin = _pins[k];
+
+                digitalWrite(pin, HIGH);
+
+                auto pulseStart = micros();
+
+                while (true) { 
+
+                    if (_pulseWidths[k] <= micros() - pulseStart) {
+
+                        digitalWrite(pin, LOW);
+
+                        break;
+
+                    }
+                }
+            }*/
         }
 
     private:
 
+        uint8_t _pin;
+        uint8_t _pulseWidth;
+
         std::vector<uint8_t> _pins;
+        std::vector<uint8_t> _pulseWidths;
 
         uint8_t _loopFrequency;
+
+        void _spin(const uint8_t pulseWidth) 
+        {
+            digitalWrite(_pin, HIGH);
+
+            auto pulseStart = micros();
+
+            while (true) { 
+
+                if (pulseWidth <= micros() - pulseStart) {
+
+                    digitalWrite(_pin, LOW);
+
+                    break;
+
+                }
+            }
+        }
 };
