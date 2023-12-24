@@ -14,7 +14,7 @@ As shown in this
 (which I used for making this
 [video](https://www.youtube.com/watch?v=b7x2g3awrsw)), 
 the API for the library
-is extremely simple: 
+is very simple: 
 
 1. In your ```setup()``` function, declare a OneShot125 object, passing it a list of pins; then 
 call the ```arm()``` method to arm the motors
