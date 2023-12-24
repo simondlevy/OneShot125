@@ -38,8 +38,10 @@ void setup()
 
 void loop() 
 {
-    motors.set(0, map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
-    motors.set(1, map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
+    auto pulseWidth = map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250);
+
+    motors.set(0, pulseWidth);
+    motors.set(1, pulseWidth);
 
     motors.spin();
 }
