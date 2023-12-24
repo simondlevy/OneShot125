@@ -26,8 +26,6 @@ static const std::vector<uint8_t> PINS = {0};
 
 static const uint32_t UPDATE_FREQUENCY = 10;
 
-static const uint8_t LOW_PULSE_WIDTH = 170;
-
 static auto motors = OneShot125(PINS);
 
 static uint8_t pulseWidth;
@@ -92,7 +90,7 @@ void loop()
             if (pulseWidth == 250) {
                 pulseIncrement = -1;
             }
-            if (pulseWidth == LOW_PULSE_WIDTH) {
+            if (pulseWidth == 125) {
                 pulseIncrement = +1;
             }
         }

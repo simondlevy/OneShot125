@@ -50,30 +50,28 @@ void loop()
     switch (state) {
 
         case 0:
-           break;
+            strcpy(message, "Plug in battery and hit Enter to begin");
+            break;
 
-        case 1:
+         case 1:
+            strcpy(message, "Wait for melody to end; then hit Enter");
             motors.set(0, 250);
             motors.set(1, 250);
             break;
 
         case 2:
+            strcpy(message, "Wait for melody to end; then unplug battery");
             motors.set(0, 125);
             motors.set(1, 125);
             break;
-
-        case 3:
-            motors.set(0, 150);
-            motors.set(1, 150);
-            break;
-     }
+    }
 
     motors.spin();
 
     auto time = millis();
 
     if (time - timePrev > 1000) {
-        //Serial.println(message);
+        Serial.println(message);
         timePrev = time;
     }
 }

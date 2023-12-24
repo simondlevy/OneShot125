@@ -20,17 +20,15 @@
 #include <oneshot125.hpp>
 #include <vector>
 
-static const uint8_t INPUT_PIN = A9;
+static const uint8_t POTENTIOMETER_PIN = A9;
 
 static const std::vector<uint8_t> MOTOR_PINS = {0, 1};
-
-static const uint8_t LOW_PULSE_WIDTH = 170;
 
 static auto motors = OneShot125(MOTOR_PINS);
 
 void setup() 
 {
-    while (analogRead(INPUT_PIN) > 0) {
+    while (analogRead(POTENTIOMETER_PIN) > 0) {
     }
 
     motors.arm(); 
@@ -38,7 +36,7 @@ void setup()
 
 void loop() 
 {
-    auto pulseWidth = map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250);
+    auto pulseWidth = map(analogRead(POTENTIOMETER_PIN), 0, 1024, 125, 250);
 
     motors.set(0, pulseWidth);
     motors.set(1, pulseWidth);
