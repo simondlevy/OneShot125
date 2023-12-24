@@ -118,16 +118,9 @@ class OneShot125Motors {
         void set(const uint8_t index, const uint8_t pulseWidth)
         {
             _pulseWidths[index] = 
-                (pulseWidth >= 125 && pulseWidth <= 250) ? pulseWidth : 125;
-
-            /*
-            if (index < _pins.size()) {
-
-                _pins[index] = 
-                    pulseWidth >= 125 && pulseWidth <= 250 ? 
-                    pulseWidth : 
-                    125;
-            }*/
+                index < _pins.size() && 
+                (pulseWidth >= 125 && pulseWidth <= 250) ? pulseWidth : 
+                125;
         }
 
         void spin(void)
