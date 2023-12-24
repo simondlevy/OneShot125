@@ -24,22 +24,80 @@
 #include <stdint.h>
 #include <vector>
 
-class OneShot125 {
+class OneShot125Motor {
 
     public:
 
-        OneShot125(const std::vector<uint8_t> pins, const uint32_t loopFrequency=2000)
+
+        OneShot125Motor(const uint8_t pin, const uint32_t loopFrequency=2000)
+        {
+            _pin = pin;
+            _loopFrequency = loopFrequency;
+        }
+
+        void arm(void) 
+        {
+            pinMode(_pin, OUTPUT);
+
+            for (uint8_t i=0; i<50; i++) {
+                digitalWrite(_pin, LOW);
+                delay(2);
+            }
+        }
+
+        void set(const uint8_t pulseWidth) 
+        {
+            if (pulseWidth >= 125 && pulseWidth <= 250) {
+
+                const auto loopStartUsec = micros();
+
+                _set(pulseWidth);
+
+                auto time = micros();
+
+                while ((time - loopStartUsec) < 1.0f / _loopFrequency * 1e6) {
+                    time = micros();
+                }
+            }
+        }
+
+    private:
+
+        uint8_t _pin;
+
+        uint8_t _loopFrequency;
+
+        void _set(const uint8_t pulseWidth) 
+        {
+            digitalWrite(_pin, HIGH);
+
+            auto pulseStart = micros();
+
+            while (true) { 
+
+                if (pulseWidth <= micros() - pulseStart) {
+
+                    digitalWrite(_pin, LOW);
+
+                    break;
+
+                }
+            }
+        }
+};
+
+class OneShot125Motors {
+
+    public:
+
+        OneShot125Motors(
+                const std::vector<uint8_t> pins, 
+                const uint32_t loopFrequency=2000)
         {
             for (auto pin : _pins) {
                 _pins.push_back(pin);
             }
 
-            _loopFrequency = loopFrequency;
-        }
-
-        OneShot125(const uint8_t pin, const uint32_t loopFrequency=2000)
-        {
-            _pins.push_back(pin);
             _loopFrequency = loopFrequency;
         }
 

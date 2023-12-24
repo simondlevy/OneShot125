@@ -23,7 +23,7 @@ static const uint8_t INPUT_PIN = A9;
 static const uint8_t MOTOR_PIN = 0;
 static const uint8_t LOW_PULSE_WIDTH = 170;
 
-static auto esc = OneShot125(MOTOR_PIN);
+static auto esc = OneShot125Motor(MOTOR_PIN);
 
 void setup() 
 {

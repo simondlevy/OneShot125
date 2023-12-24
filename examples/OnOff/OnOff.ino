@@ -25,7 +25,7 @@ static const uint8_t PIN = 0;
 static const uint32_t UPDATE_FREQUENCY = 10;
 static const uint8_t LOW_PULSE_WIDTH = 170;
 
-static auto esc = OneShot125(PIN);
+static auto esc = OneShot125Motor(PIN);
 
 static uint8_t pulseWidth;
 
