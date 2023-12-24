@@ -96,7 +96,7 @@ class OneShot125Motors {
         {
             for (auto pin : pins) {
                 _pins.push_back(pin);
-                //_pulseWidths.push_back(0);
+                _pulseWidths.push_back(0);
             }
 
             _loopFrequency = loopFrequency;
@@ -117,7 +117,8 @@ class OneShot125Motors {
 
         void set(const uint8_t index, const uint8_t pulseWidth)
         {
-            _pulseWidth = (pulseWidth >= 125 && pulseWidth <= 250) ? pulseWidth : 125;
+            _pulseWidths[index] = 
+                (pulseWidth >= 125 && pulseWidth <= 250) ? pulseWidth : 125;
 
             /*
             if (index < _pins.size()) {
@@ -133,7 +134,7 @@ class OneShot125Motors {
         {
             const auto loopStartUsec = micros();
 
-            _spin(_pulseWidth);
+            _spin(_pulseWidths[0]);
 
             auto time = micros();
 
@@ -166,7 +167,6 @@ class OneShot125Motors {
     private:
 
         uint8_t _pin;
-        uint8_t _pulseWidth;
 
         std::vector<uint8_t> _pins;
         std::vector<uint8_t> _pulseWidths;
