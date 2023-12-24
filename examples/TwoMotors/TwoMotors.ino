@@ -22,7 +22,7 @@
 
 static const uint8_t INPUT_PIN = A9;
 
-static const std::vector<uint8_t> MOTOR_PINS = {0};
+static const std::vector<uint8_t> MOTOR_PINS = {0, 1};
 
 static const uint8_t LOW_PULSE_WIDTH = 170;
 
@@ -39,6 +39,7 @@ void setup()
 void loop() 
 {
     motors.set(0, map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
+    motors.set(1, map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
 
     motors.spin();
 }

@@ -49,13 +49,13 @@ class OneShot125Motor {
         {
             if (pulseWidth >= 125 && pulseWidth <= 250) {
 
-                const auto loopStartUsec = micros();
+                const auto pulseStart = micros();
 
                 _spin(pulseWidth);
 
                 auto time = micros();
 
-                while ((time - loopStartUsec) < 1.0f / _loopFrequency * 1e6) {
+                while ((time - pulseStart) < 1.0f / _loopFrequency * 1e6) {
                     time = micros();
                 }
             }
@@ -97,6 +97,7 @@ class OneShot125Motors {
             for (auto pin : pins) {
                 _pins.push_back(pin);
                 _pulseWidths.push_back(0);
+                _flags.push_back(false);
             }
 
             _loopFrequency = loopFrequency;
@@ -125,14 +126,27 @@ class OneShot125Motors {
 
         void spin(void)
         {
-            const auto loopStartUsec = micros();
+            for (uint8_t k=0; k<_pins.size(); ++k) {
+                digitalWrite(_pins[k], HIGH);
+                _flags[k] = false;
+            }
 
-            _spin(_pins[0], _pulseWidths[0]);
+            const auto pulseStart = micros();
 
-            auto time = micros();
+            uint8_t wentLow = 0;
 
-            while ((time - loopStartUsec) < 1.0f / _loopFrequency * 1e6) {
-                time = micros();
+            while (wentLow < _pins.size()) {
+
+                const auto timer = micros();
+
+                for (uint8_t k=0; k<_pins.size(); ++k) {
+
+                    if ((_pulseWidths[k] <= timer - pulseStart) && !_flags[k]) {
+                        digitalWrite(_pins[k], LOW);
+                        wentLow++;
+                        _flags[k] = true;
+                    }
+                }
             }
         }
 
@@ -142,23 +156,7 @@ class OneShot125Motors {
 
         std::vector<uint8_t> _pulseWidths;
 
+        std::vector<bool> _flags;
+
         uint8_t _loopFrequency;
-
-        void _spin(const uint8_t pin, const uint8_t pulseWidth) 
-        {
-            digitalWrite(pin, HIGH);
-
-            auto pulseStart = micros();
-
-            while (true) { 
-
-                if (pulseWidth <= micros() - pulseStart) {
-
-                    digitalWrite(pin, LOW);
-
-                    break;
-
-                }
-            }
-        }
 };
