@@ -18,12 +18,15 @@
  */
 
 #include <oneshot125.hpp>
+#include <vector>
 
 static const uint8_t INPUT_PIN = A9;
-static const uint8_t MOTOR_PIN = 0;
+
+static const std::vector<uint8_t> MOTOR_PINS = {0};
+
 static const uint8_t LOW_PULSE_WIDTH = 170;
 
-static auto motor = OneShot125Motor(MOTOR_PIN);
+static auto motors = OneShot125(MOTOR_PINS);
 
 void setup() 
 {
@@ -31,10 +34,12 @@ void setup()
         // Wait until potentiometer reads zero
     }
 
-    motor.arm(); 
+    motors.arm(); 
 }
 
 void loop() 
 {
-    motor.spin(map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
+    motors.set(0, map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
+
+    motors.spin();
 }

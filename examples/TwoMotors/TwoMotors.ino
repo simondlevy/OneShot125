@@ -26,7 +26,7 @@ static const std::vector<uint8_t> MOTOR_PINS = {0, 1};
 
 static const uint8_t LOW_PULSE_WIDTH = 170;
 
-static auto motors = OneShot125Motors(MOTOR_PINS);
+static auto motors = OneShot125(MOTOR_PINS);
 
 void setup() 
 {

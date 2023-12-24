@@ -9,36 +9,18 @@ Nicholas Rehm's awesome
 [dRehmFlight](https://github.com/nickrehm/dRehmFlight) repository, with the goal of allowing
 fellow Teensy lovers to use this kind of ESC in other projects.
 
-As shown in the sketch below (which I used for making this
-[video](https://www.youtube.com/watch?v=b7x2g3awrsw)), the API for the library
-is extremely simple: you just declare a OneShot125 object, call its
-```arm()``` method to arm it, and call its ```spin()``` method periodically to
-set the pulse width to a value between 125 (off) and 250 (max spin)
-microseconds:
+As shown in this
+[sketch](https://github.com/simondlevy/TeensyOneShot125/tree/main/examples/Dial/Dial.ino) 
+(which I used for making this
+[video](https://www.youtube.com/watch?v=b7x2g3awrsw)), 
+the API for the library
+is extremely simple: 
 
-```
-#include <oneshot125.hpp>
+1. In your ```setup()``` function, declare a OneShot125 object, passing it a list of pins; then 
+call the ```arm()``` method to arm the motors
 
-static const uint8\_t INPUT\_PIN = A9;
-static const uint8\_t MOTOR\_PIN = 0;
-static const uint8\_t LOW\_PULSE\_WIDTH = 170;
-
-static auto motor = OneShot125Motor(MOTOR\_PIN);
-
-void setup() 
-{
-    while (analogRead(INPUT_PIN) > 0) {
-        // Wait until potentiometer reads zero
-    }
-
-    motor.arm(); 
-}
-
-void loop() 
-{
-    motor.spin(map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
-}
-```
+2. In your ```loop()``` function, the ```set()``` method to set the pulse width for each motor; then
+call the ```spin()``` method to spin the motors.
 
 As shown in this 
 [sketch](https://github.com/simondlevy/TeensyOneShot125/tree/main/examples/TwoMotors/TwoMotors.ino), 

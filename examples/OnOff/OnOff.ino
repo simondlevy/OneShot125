@@ -20,12 +20,15 @@
  */
 
 #include <oneshot125.hpp>
+#include <vector>
 
-static const uint8_t PIN = 0;
+static const std::vector<uint8_t> PINS = {0};
+
 static const uint32_t UPDATE_FREQUENCY = 10;
+
 static const uint8_t LOW_PULSE_WIDTH = 170;
 
-static auto motor = OneShot125Motor(PIN);
+static auto motors = OneShot125(PINS);
 
 static uint8_t pulseWidth;
 
@@ -56,7 +59,7 @@ void setup()
 
     Serial.println("Arming ...");
 
-    motor.arm(); 
+    motors.arm(); 
 
     delay(2000);
 
@@ -71,7 +74,9 @@ void loop()
 {
     auto time = micros();
 
-    motor.spin(pulseWidth); 
+    motors.set(0, pulseWidth); 
+
+    motors.spin(); 
 
     if (gotInput) {
         pulseWidth = 125;
