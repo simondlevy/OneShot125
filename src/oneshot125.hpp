@@ -94,27 +94,25 @@ class OneShot125Motors {
                 const std::vector<uint8_t> pins, 
                 const uint32_t loopFrequency=2000)
         {
-            _pin = pins[0];
-            /*
             for (auto pin : pins) {
                 _pins.push_back(pin);
-                _pulseWidths.push_back(0);
-            }*/
+                //_pulseWidths.push_back(0);
+            }
 
             _loopFrequency = loopFrequency;
         }
 
         void arm(void) 
         {
-            //for (auto pin : _pins) {
+            for (auto pin : _pins) {
 
-                pinMode(_pin, OUTPUT);
+                pinMode(pin, OUTPUT);
 
                 for (uint8_t i=0; i<50; i++) {
-                    digitalWrite(_pin, LOW);
+                    digitalWrite(pin, LOW);
                     delay(2);
                 }
-            //}
+            }
         }
 
         void set(const uint8_t index, const uint8_t pulseWidth)
