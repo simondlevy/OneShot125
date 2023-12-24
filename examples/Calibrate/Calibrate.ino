@@ -35,6 +35,13 @@ void serialEvent(void)
     state++;
 }
 
+static void setMotors(const uint8_t pulseWidth)
+{
+    for (auto pin : MOTOR_PINS) {
+        motors.set(pin, pulseWidth);
+    }
+}
+
 void setup() 
 {
     Serial.begin(115200);
@@ -55,14 +62,12 @@ void loop()
 
          case 1:
             strcpy(message, "Wait for melody to end; then hit Enter");
-            motors.set(0, 250);
-            motors.set(1, 250);
+            setMotors(250);
             break;
 
         case 2:
             strcpy(message, "Wait for melody to end; then unplug battery");
-            motors.set(0, 125);
-            motors.set(1, 125);
+            setMotors(125);
             break;
     }
 
