@@ -62,7 +62,7 @@ class OneShot125 {
                 125;
         }
 
-        void spin(void)
+        void run(void)
         {
             for (uint8_t k=0; k<_pins.size(); ++k) {
                 digitalWrite(_pins[k], HIGH);

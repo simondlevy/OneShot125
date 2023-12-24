@@ -41,5 +41,5 @@ void loop()
     motors.set(0, pulseWidth);
     motors.set(1, pulseWidth);
 
-    motors.spin();
+    motors.run();
 }

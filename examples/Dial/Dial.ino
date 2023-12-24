@@ -39,5 +39,5 @@ void loop()
 {
     motors.set(0, map(analogRead(POTENTIOMETER_PIN), 0, 1024, 125, 250));
 
-    motors.spin();
+    motors.run();
 }

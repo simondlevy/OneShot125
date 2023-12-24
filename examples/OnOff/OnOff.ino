@@ -74,7 +74,7 @@ void loop()
 
     motors.set(0, pulseWidth); 
 
-    motors.spin(); 
+    motors.run(); 
 
     if (gotInput) {
         pulseWidth = 125;

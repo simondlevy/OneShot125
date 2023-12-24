@@ -66,7 +66,7 @@ void loop()
             break;
     }
 
-    motors.spin();
+    motors.run();
 
     auto time = millis();
 

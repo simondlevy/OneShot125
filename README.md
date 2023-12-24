@@ -21,7 +21,8 @@ is very simple:
 2. In your ```setup()``` function, call the object's ```arm()``` method to arm the motors
 
 3. In your ```loop()``` function, call the object's ```set()``` method to set the pulse
-width for each motor; then call the ```spin()``` method to spin the motors.
+width for each motor; then call the ```run()``` method to run the motors at the specified
+pulse widths.
 
 If you dont' have a potentiometer (variable resitor with dial) as shown in the
 video, you can try this [sketch](https://github.com/simondlevy/TeensyOneShot125/blob/main/examples/OnOff/OnOff.ino), 
