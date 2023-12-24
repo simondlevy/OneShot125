@@ -22,7 +22,7 @@
 
 static const uint8_t POTENTIOMETER_PIN = A9;
 
-static const std::vector<uint8_t> MOTOR_PINS = {0};
+static const std::vector<uint8_t> MOTOR_PINS = {0, 1};
 
 static auto motors = OneShot125(MOTOR_PINS);
 
@@ -37,7 +37,10 @@ void setup()
 
 void loop() 
 {
-    motors.set(0, map(analogRead(POTENTIOMETER_PIN), 0, 1024, 125, 250));
+    auto pulseWidth = map(analogRead(POTENTIOMETER_PIN), 0, 1024, 125, 250);
+
+    motors.set(0, pulseWidth);
+    motors.set(1, pulseWidth);
 
     motors.run();
 }
