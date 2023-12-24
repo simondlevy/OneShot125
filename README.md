@@ -20,7 +20,7 @@ is very simple:
 
 2. In your ```setup()``` function, call the object's ```arm()``` method to arm the motors
 
-2. In your ```loop()``` function, call the object's ```set()``` method to set the pulse
+3. In your ```loop()``` function, call the object's ```set()``` method to set the pulse
 width for each motor; then call the ```spin()``` method to spin the motors.
 
 As shown in this 
