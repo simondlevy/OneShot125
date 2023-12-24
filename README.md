@@ -23,10 +23,6 @@ is very simple:
 3. In your ```loop()``` function, call the object's ```set()``` method to set the pulse
 width for each motor; then call the ```spin()``` method to spin the motors.
 
-As shown in this 
-[sketch](https://github.com/simondlevy/TeensyOneShot125/tree/main/examples/TwoMotors/TwoMotors.ino), 
-the library also supports running more than one motor at a time.
-
 If you dont' have a potentiometer (variable resitor with dial) as shown in the
 video, you can try this [sketch](https://github.com/simondlevy/TeensyOneShot125/blob/main/examples/OnOff/OnOff.ino), 
 which prompts for you starting and stopping the motor and automatically spins it at different RPMs.
