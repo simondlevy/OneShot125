@@ -41,7 +41,7 @@ void loop()
 ```
 
 As shown in this 
-[sketch](https://github.com/simondlevy/TeensyOneShot125/tree/main/examples/TwoMotors/TowMotors.ino), 
+[sketch](https://github.com/simondlevy/TeensyOneShot125/tree/main/examples/TwoMotors/TwoMotors.ino), 
 the library also supports running more than one motor at a time.
 
 If you dont' have a potentiometer (variable resitor with dial) as shown in the
