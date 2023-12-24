@@ -45,7 +45,7 @@ class OneShot125Motor {
             }
         }
 
-        void set(const uint8_t pulseWidth) 
+        void spin(const uint8_t pulseWidth) 
         {
             if (pulseWidth >= 125 && pulseWidth <= 250) {
 

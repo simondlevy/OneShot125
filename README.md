@@ -12,7 +12,7 @@ fellow Teensy lovers to use this kind of ESC in other projects.
 As shown in the sketch below (which I used for making this
 [video](https://www.youtube.com/watch?v=b7x2g3awrsw)), the API for the library
 is extremely simple: you just declare a OneShot125 object, call its
-```arm()``` method to arm it, and call its ```set()``` method periodically to
+```arm()``` method to arm it, and call its ```spin()``` method periodically to
 set the pulse width to a value between 125 (off) and 250 (max spin)
 microseconds:
 
@@ -36,7 +36,7 @@ void setup()
 
 void loop() 
 {
-    esc.set(map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
+    esc.spin(map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
 }
 ```
 

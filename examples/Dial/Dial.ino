@@ -36,5 +36,5 @@ void setup()
 
 void loop() 
 {
-    esc.set(map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
+    esc.spin(map(analogRead(INPUT_PIN), 0, 1024, LOW_PULSE_WIDTH, 250));
 }

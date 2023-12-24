@@ -71,7 +71,7 @@ void loop()
 {
     auto time = micros();
 
-    esc.set(pulseWidth); 
+    esc.spin(pulseWidth); 
 
     if (gotInput) {
         pulseWidth = 125;
