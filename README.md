@@ -13,9 +13,10 @@ As shown in the sketch below (which I used for making this
 [video](https://www.youtube.com/watch?v=b7x2g3awrsw)), 
 the API for the library is very simple: 
 
-1. Declare a OneShot125 object, passing it a list of pins
+1. Declare a OneShot125 object, passing it a list of pins.
 
-2. In your ```setup()``` function, call the object's ```arm()``` function to arm the motors
+2. In your ```setup()``` function, call the object's ```arm()``` function to
+arm the motors.
 
 3. In your ```loop()``` function, call the object's ```set()``` function to set the pulse
 width on each pin; then call the ```run()``` function to run the motors at the specified
