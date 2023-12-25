@@ -1,5 +1,5 @@
 /*
-   Test motors using R/C transmitter
+   Test ESCs.  Make sure to run Calibrate sketch first
 
    This file is part of Teensy-OneShot125.
 
@@ -20,24 +20,26 @@
 #include <oneshot125.hpp>
 #include <vector>
 
+// Un-comment on of these
+//#define SBUS
+#define POTENTIOMETER
+
+#include "input.hpp"
+
 static const std::vector<uint8_t> PINS = {3, 4};
 
 static auto motors = OneShot125(PINS);
 
-void rcInit(void);
-
-float rcGetThrottle();
-
 void setup() 
 {
-    rcInit();
+    inputInit();
 
     motors.arm(); 
 }
 
 void loop() 
 {
-    auto pulseWidth = map(rcGetThrottle(), 0, 1, 125, 250);
+    auto pulseWidth = map(inputGet(), 0, 1, 125, 250);
 
     motors.set(0, pulseWidth);
     motors.set(1, pulseWidth);
