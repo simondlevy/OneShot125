@@ -1,4 +1,4 @@
-SKETCH = Calibrate
+SKETCH = Uncalibrate
 
 PORT = /dev/ttyACM0
 

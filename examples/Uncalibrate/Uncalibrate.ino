@@ -1,5 +1,5 @@
 /*
-   Calibrate ESCs
+   "Uncalibrate" ESCs by setting min pulse width to 125 uSec and max to 250
 
    This file is part of Teensy-OneShot125.
 
