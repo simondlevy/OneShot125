@@ -72,7 +72,7 @@ and the SBUS version requires
 shows me using the SBUS version, with a FrSky transmitter and receiver.
 As you can see in the video, calibration uses the following steps:
 
-1. With the battery and Teensy unpowered, turn on the transmitter and
+1. With the battery and Teensy unplugged, turn on the transmitter and
 max-out the throttle.
 
 2. Plug in the Teensy board.  If it is receiving full throttle correctly,
