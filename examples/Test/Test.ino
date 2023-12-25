@@ -20,18 +20,16 @@
 #include <oneshot125.hpp>
 #include <vector>
 
-// Un-comment on of these
-//#define SBUS
-#define POTENTIOMETER
-
 #include "input.hpp"
 
-static const std::vector<uint8_t> PINS = {3, 4};
+static const std::vector<uint8_t> PINS = {0, 1};
 
 static auto motors = OneShot125(PINS);
 
 void setup() 
 {
+    Serial.begin(115200);
+
     inputInit();
 
     motors.arm(); 
@@ -39,7 +37,7 @@ void setup()
 
 void loop() 
 {
-    auto pulseWidth = map(inputGet(), 0, 1, 125, 250);
+    auto pulseWidth = (uint8_t)(125 * (inputGet() + 1));
 
     motors.set(0, pulseWidth);
     motors.set(1, pulseWidth);

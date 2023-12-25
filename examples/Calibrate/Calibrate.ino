@@ -20,13 +20,11 @@
 #include <oneshot125.hpp>
 #include <vector>
 
-// Un-comment one of these
-#define SBUS
-//#define POTENTIOMETER
-
 #include "input.hpp"
 
 static const std::vector<uint8_t> MOTOR_PINS = {0, 1};
+
+static const float TOLERANCE = 0.01;
 
 static auto motors = OneShot125(MOTOR_PINS);
 
@@ -39,6 +37,8 @@ static void setMotors(const uint8_t pulseWidth)
 
 void setup() 
 {
+    Serial.begin(115200);
+
     pinMode(LED_BUILTIN, OUTPUT);
 
     inputInit();
@@ -50,12 +50,12 @@ void loop()
 {
     auto input = inputGet();
 
-    if (input == 0.0) {
+    if (input < TOLERANCE) {
         digitalWrite(LED_BUILTIN, LOW);
         setMotors(125);
     }
 
-    else if (input == 1.0) {
+    else if (input > (1-TOLERANCE)) {
         digitalWrite(LED_BUILTIN, HIGH);
         setMotors(250);
     }

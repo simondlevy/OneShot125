@@ -22,9 +22,14 @@
 #include <Arduino.h>
 #include <stdint.h>
 
-#if defined(POTENTIOMETER)
+// Un-comment on of these
+#define SBUS
+//#define DSMX
+//#define POTENTIOMETER
 
 ///////////////////////////////////////////////////////////////////////////////////
+
+#if defined(POTENTIOMETER)
 
 static const uint8_t POTENTIOMETER_PIN = A0;
 
@@ -63,6 +68,47 @@ static float inputGet(void)
 
         throttle = (data.ch[0] - 172) / 1639.f;
     }
+
+    return throttle;
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+
+#elif defined(DSMX)
+
+#include <dsmrx.h>
+
+static const uint8_t DSMX_CHANNELS = 8;
+
+static Dsm2048 dsm_rx;
+
+void serialEvent2(void)
+{
+    while (Serial2.available()) {
+        dsm_rx.handleSerialEvent(Serial2.read(), micros());
+    }
+}
+
+static void inputInit(void)
+{
+    Serial2.begin(115200);
+}
+
+static float inputGet(void)
+{
+    static float throttle;
+
+    if (dsm_rx.gotNewFrame()) {
+
+        float values[DSMX_CHANNELS] = {};
+
+        dsm_rx.getChannelValues(values, DSMX_CHANNELS);
+
+        throttle = (values[0] + 1) / 2;
+
+    }
+
+    delay(10);
 
     return throttle;
 }
