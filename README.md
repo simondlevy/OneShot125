@@ -79,4 +79,5 @@ max-out the throttle.
 the LED will turn on.
 
 3. Plug in the battery.  You should immediately hear the 
-[calibration starting](media/melody1.mp3) melody.
+[calibration starting](https://simondlevy.academic.wlu.edu/files/2023/12/esc_calibration1.mp3)
+melody.
