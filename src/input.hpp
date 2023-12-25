@@ -1,5 +1,5 @@
 /*
-   Supports input using FrSky SBUS or potentiometer.
+   Supports input using FrSky SBUS, Spektrum DSMX, or potentiometer.
 
    This file is part of Teensy-OneShot125.
 
