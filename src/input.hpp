@@ -44,7 +44,7 @@ static float inputGet(void)
 
 #include <sbus.h>
 
-static bfs::SbusRx sbus_rx(&Serial1);
+static bfs::SbusRx sbus_rx(&Serial2);
 
 static void inputInit(void)
 {

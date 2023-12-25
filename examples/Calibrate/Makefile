@@ -2,12 +2,10 @@ SKETCH = Calibrate
 
 PORT = /dev/ttyACM0
 
-LIB = ../..
-
 BOARD = teensy:avr:teensy40
 
 build:
-	arduino-cli compile  --libraries $(LIB),.. --fqbn $(BOARD) $(SKETCH).ino
+	arduino-cli compile  --libraries ../..,../../.. --fqbn $(BOARD) $(SKETCH).ino
 
 flash:
 	arduino-cli upload -p $(PORT) --fqbn $(BOARD) .

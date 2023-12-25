@@ -20,11 +20,15 @@
 #include <oneshot125.hpp>
 #include <vector>
 
+// Un-comment one of these
+#define SBUS
+//#define POTENTIOMETER
+
+#include "input.hpp"
+
 static const std::vector<uint8_t> MOTOR_PINS = {0, 1};
 
 static auto motors = OneShot125(MOTOR_PINS);
-
-static uint8_t state;
 
 static void setMotors(const uint8_t pulseWidth)
 {
@@ -37,37 +41,25 @@ void setup()
 {
     Serial.begin(115200);
 
+    inputInit();
+
     motors.arm();
 }
 
 void loop() 
 {
-    static uint32_t timePrev;
-    static char message[100];
+    auto input = inputGet();
 
-    switch (state) {
+    if (input == 0.0) {
+        digitalWrite(LED_BUILTIN, LOW);
+        setMotors(125);
+    }
 
-        case 0:
-            strcpy(message, "Throttle up, then plug in battery and hit Enter to begin");
-            break;
-
-         case 1:
-            strcpy(message, "Wait for melody to end; then hit Enter");
-            setMotors(250);
-            break;
-
-        case 2:
-            strcpy(message, "Wait for melody to end; then unplug battery");
-            setMotors(125);
-            break;
+    else if (input == 1.0) {
+        digitalWrite(LED_BUILTIN, HIGH);
+        setMotors(250);
     }
 
     motors.run();
 
-    auto time = millis();
-
-    if (time - timePrev > 1000) {
-        Serial.println(message);
-        timePrev = time;
-    }
 }
