@@ -23,12 +23,14 @@ width on each pin; then call the ```run()``` function to run the motors at the s
 pulse widths.
 
 ```
-static const std::vector<uint8_t> PINS = {0};
+static const std::vector<uint8_t> PINS = {0, 1};
 
 static auto motors = OneShot125(PINS);
 
 void setup() 
 {
+    Serial.begin(115200);
+
     inputInit();
 
     motors.arm(); 
@@ -36,12 +38,12 @@ void setup()
 
 void loop() 
 {
-    auto pulseWidth = map(inputGet(), 0, 1, 125, 250);
+    auto pulseWidth = (uint8_t)(125 * (inputGet() + 1));
 
     motors.set(0, pulseWidth);
+    motors.set(1, pulseWidth);
 
     motors.run();
-}
 ```
 
 In this sketch, ```inputInit()``` is a (possibly empty) function that sets up
