@@ -1,4 +1,4 @@
-<a href="https://www.youtube.com/watch?v=b7x2g3awrsw"><img src="screenshot.jpg" width=500 align="right"></a>
+<a href="https://www.youtube.com/watch?v=b7x2g3awrsw"><img src="screenshot.jpg" width=500 align="middle"></a>
 
 This a simple, header-only C++ library for using a 
 [Teensy](https://www.pjrc.com/teensy/)
