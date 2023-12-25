@@ -75,7 +75,7 @@ As you can see in the video, calibration uses the following steps:
 1. With the battery and Teensy unpowered, turn on the transmitter and
 max-out the throttle.
 
-2. Plug in the Teensy board.  If it receiving full throttle correctly,
+2. Plug in the Teensy board.  If it is receiving full throttle correctly,
 the LED will turn on.
 
 3. Plug in the battery.  You should immediately hear the 
@@ -86,3 +86,5 @@ melody.
 LED turn off and should immediately hear the [calibration
 completed](https://simondlevy.academic.wlu.edu/files/2023/12/esc_calibration2.mp3)
 melody.
+
+5. Unplug the battery
