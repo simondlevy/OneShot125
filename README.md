@@ -38,7 +38,6 @@ void loop()
     auto pulseWidth = map(inputGet(), 0, 1, 125, 250);
 
     motors.set(0, pulseWidth);
-    motors.set(1, pulseWidth);
 
     motors.run();
 }
