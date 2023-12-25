@@ -1,8 +1,8 @@
 <a href="https://www.youtube.com/watch?v=b7x2g3awrsw"><img src="screenshot.jpg" width=500></a>
 
 This a simple, header-only C++ library for using a 
-[Teensy](https://www.pjrc.com/teensy/)
-microcontroller board to run brushless motors via an electronic speed
+[Teensy 4.0 ](https://www.pjrc.com/store/teensy40.html) 
+development board to run brushless motors via an electronic speed
 controller (ESC) supporting the popular
 [OneShot125](https://oscarliang.com/oneshot125-esc-quadcopter-fpv/) protocol.  I adapted the code from
 Nicholas Rehm's awesome
