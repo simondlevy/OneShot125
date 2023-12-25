@@ -18,7 +18,7 @@ the API for the library is very simple:
 2. In your ```setup()``` function, call the object's ```arm()``` method to arm the motors
 
 3. In your ```loop()``` function, call the object's ```set()``` method to set the pulse
-width for each motor; then call the ```run()``` method to run the motors at the specified
+width on each pin; then call the ```run()``` method to run the motors at the specified
 pulse widths.
 
 ```
