@@ -58,8 +58,7 @@ each ESC, and when your input is at its minimum you send the minimum 125uSec
 pulse width.  Because of the potential to spin the motors unexpectedly, you
 should <b>make sure to remove the propellers from your motors before calibrating</b>.
 
-The
-[Calibration sketch](https://github.com/simondlevy/TeensyOneShot125/blob/main/examples/Calibrate/Calibrate.ino)
+The [calibration sketch](/examples/Calibrate/Calibrate.ino)
 allows you to calibrate your ESCs using either the
 sort of potentiometer shown in the video, or the more common method of an R/C
 transmitter/receiver. This sketch supports the popular DSMX and SBUS protocols,
@@ -88,3 +87,13 @@ completed](https://simondlevy.academic.wlu.edu/files/2023/12/esc_calibration2.mp
 melody.
 
 5. Unplug the battery
+
+In the calibration sketch I've used the Serial2 UART for the receiver and
+pins 0 and 1 for the ESCs, but you should be able to use any leigitimate
+serial port or pins in your copy of the sketch.
+
+
+## Testing and deploying
+
+I've also provided a 
+[test sketch](https://github.com/simondlevy/TeensyOneShot125/blob/main/examples/Calibrate/Calibrate.ino)
