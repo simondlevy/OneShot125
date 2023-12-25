@@ -60,7 +60,7 @@ should <b>make sure to remove the propellers from your motors before calibrating
 
 The
 [Calibration sketch](https://github.com/simondlevy/TeensyOneShot125/blob/main/examples/Calibrate/Calibrate.ino)
-allows you to do calibrate your ESCs using either the
+allows you to calibrate your ESCs using either the
 sort of potentiometer shown in the video, or the more common method of and R/C
 transmitter/receiver. This sketch supports the popular DSMX and SBUS protocols,
 which you can select by un-commenting on of the ```#include``` lines at the top of the
