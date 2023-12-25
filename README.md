@@ -95,5 +95,8 @@ serial port or pins in your copy of the sketch.
 
 ## Testing and deploying
 
-I've also provided a 
-[test sketch](https://github.com/simondlevy/TeensyOneShot125/blob/main/examples/Calibrate/Calibrate.ino)
+I've also provided a [testing sketch](examples/Calibrate/Calibrate.ino) that
+you can use to test your setup after calibrating, and to deploy in an actual
+project.  As with the calibration sketch, you should <b>make sure to remove an
+propellers before running the sketch</b>, and un-comment the 
+```#include``` lines at the top of the sketch to match your input device.
