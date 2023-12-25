@@ -19,8 +19,6 @@
    Teensy-OneShot125. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <PWMServo.h> 
-
 #include <stdint.h>
 #include <vector>
 
