@@ -22,7 +22,7 @@ width for each motor; then call the ```run()``` method to run the motors at the 
 pulse widths.
 
 ```
-static const std::vector<uint8_t> PINS = {3, 4};
+static const std::vector<uint8_t> PINS = {0};
 
 static auto motors = OneShot125(PINS);
 
@@ -43,3 +43,9 @@ void loop()
     motors.run();
 }
 ```
+
+In this sketch, the ```initInput()``` is a (possibly empty) method that sets up
+your input device, such as an R/C receiver.  The ```getInput()``` method returns
+a floating-point value between 0 and 1, such as the normalized throttle or
+potentiometer reading.
+
