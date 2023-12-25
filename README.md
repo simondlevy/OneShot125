@@ -46,7 +46,7 @@ void loop()
 
 In this sketch, ```inputInit()``` is a (possibly empty) function that sets up
 your input device, such as an R/C receiver, or the potentiometer used in the
-video.  The ```getInput()``` function returns a floating-point value between 0
+video.  The ```inputGet()``` function returns a floating-point value between 0
 and 1, such as the normalized throttle or potentiometer reading.
 
 ## Calibrating your ESCs
