@@ -15,10 +15,10 @@ the API for the library is very simple:
 
 1. Declare a OneShot125 object, passing it a list of pins
 
-2. In your ```setup()``` function, call the object's ```arm()``` method to arm the motors
+2. In your ```setup()``` function, call the object's ```arm()``` function to arm the motors
 
-3. In your ```loop()``` function, call the object's ```set()``` method to set the pulse
-width on each pin; then call the ```run()``` method to run the motors at the specified
+3. In your ```loop()``` function, call the object's ```set()``` function to set the pulse
+width on each pin; then call the ```run()``` function to run the motors at the specified
 pulse widths.
 
 ```
@@ -43,8 +43,8 @@ void loop()
 }
 ```
 
-In this sketch, ```inputInit()``` is a (possibly empty) method that sets up
-your input device, such as an R/C receiver.  The ```getInput()``` method returns
+In this sketch, ```inputInit()``` is a (possibly empty) function that sets up
+your input device, such as an R/C receiver.  The ```getInput()``` function returns
 a floating-point value between 0 and 1, such as the normalized throttle or
 potentiometer reading.
 
