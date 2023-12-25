@@ -1,4 +1,4 @@
-<a href="https://www.youtube.com/watch?v=b7x2g3awrsw"><img src="media/screenshot.jpg" width=500></a>
+<a href="https://www.youtube.com/watch?v=b7x2g3awrsw"><img src="screenshot.jpg" width=500></a>
 
 This a simple, header-only C++ library for using a 
 [Teensy](https://www.pjrc.com/teensy/)
@@ -80,4 +80,9 @@ the LED will turn on.
 
 3. Plug in the battery.  You should immediately hear the 
 [calibration starting](https://simondlevy.academic.wlu.edu/files/2023/12/esc_calibration1.mp3)
+melody.
+
+4. Lower the throttle stick on the transmitter all the way. You should see the
+LED turn off and should immediately hear the [calibration
+completed](https://simondlevy.academic.wlu.edu/files/2023/12/esc_calibration2.mp3)
 melody.
