@@ -1,5 +1,7 @@
 /*
-   Test ESCs.  Make sure to run Calibrate sketch first
+   Supports input using FrSky SBUS receivers
+
+   Additional library required: https://github.com/bolderflight/sbus
 
    This file is part of Teensy-OneShot125.
 
@@ -17,33 +19,29 @@
    Teensy-OneShot125. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <oneshot125.hpp>
-#include <vector>
+#pragma once
 
-// Un-comment on of these:
-//#include "input_dsmx.hpp"
-//#include "input_pot.hpp"
-#include "input_sbus.hpp"
+#include <sbus.h>
 
-static const std::vector<uint8_t> PINS = {0, 1};
+static bfs::SbusRx rx(&Serial2);
 
-static auto motors = OneShot125(PINS);
-
-void setup() 
+static void inputInit(void)
 {
-    Serial.begin(115200);
+  Serial.begin(115200);
 
-    inputInit();
-
-    motors.arm(); 
+  rx.Begin();
 }
 
-void loop() 
+static float inputGet(void)
 {
-    auto pulseWidth = (uint8_t)(125 * (inputGet() + 1));
+    static float throttle;
 
-    motors.set(0, pulseWidth);
-    motors.set(1, pulseWidth);
+    if (rx.Read()) {
 
-    motors.run();
+        auto data = rx.data();
+
+        throttle = (data.ch[0] - 172) / 1639.f;
+    }
+
+    return throttle;
 }

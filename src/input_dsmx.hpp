@@ -1,5 +1,7 @@
 /*
-   Test ESCs.  Make sure to run Calibrate sketch first
+   Supports input using Spektrum DSMX receivers.
+
+   Additional library required: https://github.com/simondlevy/DSMRX
 
    This file is part of Teensy-OneShot125.
 
@@ -17,33 +19,41 @@
    Teensy-OneShot125. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <oneshot125.hpp>
-#include <vector>
+#pragma once
 
-// Un-comment on of these:
-//#include "input_dsmx.hpp"
-//#include "input_pot.hpp"
-#include "input_sbus.hpp"
+#include <dsmrx.h>
 
-static const std::vector<uint8_t> PINS = {0, 1};
+static const uint8_t DSMX_CHANNELS = 8;
 
-static auto motors = OneShot125(PINS);
+static Dsm2048 rx;
 
-void setup() 
+void serialEvent2(void)
 {
-    Serial.begin(115200);
-
-    inputInit();
-
-    motors.arm(); 
+    while (Serial2.available()) {
+        rx.handleSerialEvent(Serial2.read(), micros());
+    }
 }
 
-void loop() 
+static void inputInit(void)
 {
-    auto pulseWidth = (uint8_t)(125 * (inputGet() + 1));
+    Serial2.begin(115200);
+}
 
-    motors.set(0, pulseWidth);
-    motors.set(1, pulseWidth);
+static float inputGet(void)
+{
+    static float throttle;
 
-    motors.run();
+    if (rx.gotNewFrame()) {
+
+        float values[DSMX_CHANNELS] = {};
+
+        rx.getChannelValues(values, DSMX_CHANNELS);
+
+        throttle = (values[0] + 1) / 2;
+
+    }
+
+    delay(10);
+
+    return throttle;
 }

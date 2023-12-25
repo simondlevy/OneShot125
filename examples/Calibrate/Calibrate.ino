@@ -20,7 +20,10 @@
 #include <oneshot125.hpp>
 #include <vector>
 
-#include "input.hpp"
+// Un-comment on of these:
+//#include "input_dsmx.hpp"
+//#include "input_pot.hpp"
+#include "input_sbus.hpp"
 
 static const std::vector<uint8_t> MOTOR_PINS = {0, 1};
 

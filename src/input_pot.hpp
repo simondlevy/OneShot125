@@ -1,5 +1,5 @@
 /*
-   Test ESCs.  Make sure to run Calibrate sketch first
+   Supports input using potentiometer.
 
    This file is part of Teensy-OneShot125.
 
@@ -17,33 +17,18 @@
    Teensy-OneShot125. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <oneshot125.hpp>
-#include <vector>
+#pragma once
 
-// Un-comment on of these:
-//#include "input_dsmx.hpp"
-//#include "input_pot.hpp"
-#include "input_sbus.hpp"
+#include <Arduino.h>
+#include <stdint.h>
 
-static const std::vector<uint8_t> PINS = {0, 1};
+static const uint8_t POTENTIOMETER_PIN = A0;
 
-static auto motors = OneShot125(PINS);
-
-void setup() 
+static void inputInit(void) 
 {
-    Serial.begin(115200);
-
-    inputInit();
-
-    motors.arm(); 
 }
 
-void loop() 
+static float inputGet(void)
 {
-    auto pulseWidth = (uint8_t)(125 * (inputGet() + 1));
-
-    motors.set(0, pulseWidth);
-    motors.set(1, pulseWidth);
-
-    motors.run();
+    return analogRead(POTENTIOMETER_PIN) / 1024.f;
 }
