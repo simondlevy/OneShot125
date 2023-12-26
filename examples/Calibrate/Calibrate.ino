@@ -1,5 +1,5 @@
 /*
-   Calibrate ESCs using R/C transmitter
+   Calibrate ESCs using R/C transmitter or potentiometer
 
    This file is part of Teensy-OneShot125.
 
