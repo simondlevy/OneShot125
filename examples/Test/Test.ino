@@ -20,6 +20,8 @@
 #include <oneshot125.hpp>
 #include <vector>
 
+#define RX_SERIAL Serial2
+
 // Un-comment on of these:
 //#include "input_dsmx.hpp"
 //#include "input_pot.hpp"

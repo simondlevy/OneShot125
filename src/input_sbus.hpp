@@ -23,12 +23,10 @@
 
 #include <sbus.h>
 
-static bfs::SbusRx rx(&Serial2);
+static bfs::SbusRx rx(&RX_SERIAL);
 
 static void inputInit(void)
 {
-  Serial.begin(115200);
-
   rx.Begin();
 }
 

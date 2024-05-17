@@ -21,26 +21,23 @@
 
 #pragma once
 
-#include <dsmrx.h>
+#include <dsmrx.hpp>
 
 static const uint8_t DSMX_CHANNELS = 8;
 
 static Dsm2048 rx;
 
-void serialEvent2(void)
-{
-    while (Serial2.available()) {
-        rx.handleSerialEvent(Serial2.read(), micros());
-    }
-}
-
 static void inputInit(void)
 {
-    Serial2.begin(115200);
+    RX_SERIAL.begin(115200);
 }
 
 static float inputGet(void)
 {
+    while (RX_SERIAL.available()) {
+        rx.parse(RX_SERIAL.read(), micros());
+    }
+
     static float throttle;
 
     if (rx.gotNewFrame()) {
