@@ -27,7 +27,7 @@
 //#include "input_pot.hpp"
 #include "input_sbus.hpp"
 
-static const std::vector<uint8_t> PINS = {0, 1};
+static const std::vector<uint8_t> PINS = {0};
 
 static auto motors = OneShot125(PINS);
 

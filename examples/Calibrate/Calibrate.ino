@@ -23,8 +23,8 @@
 #define RX_SERIAL Serial2
 
 // Un-comment on of these:
-//#include "input_dsmx.hpp"
-#include "input_sbus.hpp"
+#include "input_dsmx.hpp"
+//#include "input_sbus.hpp"
 
 static const std::vector<uint8_t> MOTOR_PINS = {0, 1, 2, 3};
 
@@ -53,6 +53,8 @@ void setup()
 void loop() 
 {
     auto input = inputGet();
+
+    printf("%f\n", input);
 
     if (input < TOLERANCE) {
         digitalWrite(LED_BUILTIN, LOW);
