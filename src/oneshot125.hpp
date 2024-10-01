@@ -19,6 +19,8 @@
    Teensy-OneShot125. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #include <stdint.h>
 #include <vector>
 

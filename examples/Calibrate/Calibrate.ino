@@ -26,7 +26,7 @@
 #include "input_dsmx.hpp"
 //#include "input_sbus.hpp"
 
-static const std::vector<uint8_t> MOTOR_PINS = {0, 1, 2, 3};
+static const std::vector<uint8_t> MOTOR_PINS = { 2, 3, 4, 5 };
 
 static const float TOLERANCE = 0.01;
 
@@ -53,8 +53,6 @@ void setup()
 void loop() 
 {
     auto input = inputGet();
-
-    printf("%f\n", input);
 
     if (input < TOLERANCE) {
         digitalWrite(LED_BUILTIN, LOW);
