@@ -1,13 +1,13 @@
 <a href="https://www.youtube.com/watch?v=b7x2g3awrsw"><img src="screenshot.jpg" width=500></a>
 
-This a simple, header-only C++ library for using a 
-[Teensy 4.0 ](https://www.pjrc.com/store/teensy40.html) 
+This a simple, header-only C++ library for using a fast Arduino-compatible
+microcontroller like the [Teensy 4.0 ](https://www.pjrc.com/store/teensy40.html) 
 development board to run brushless motors via an electronic speed
 controller (ESC) supporting the popular
 [OneShot125](https://oscarliang.com/oneshot125-esc-quadcopter-fpv/) protocol.  I adapted the code from
 Nicholas Rehm's awesome
 [dRehmFlight](https://github.com/nickrehm/dRehmFlight) repository, with the goal of allowing
-fellow Teensy lovers to use this kind of ESC in other projects.
+fellow DIYers to use this kind of ESC in other projects.
 
 As shown in the sketch below (which I used for making this
 [video](https://www.youtube.com/watch?v=b7x2g3awrsw)), 
@@ -73,10 +73,10 @@ and the SBUS version requires
 shows me using the SBUS version, with a FrSky transmitter and receiver.
 As you can see in the video, calibration uses the following steps:
 
-1. With the battery and Teensy unplugged, turn on the transmitter and
+1. With the battery and board unplugged, turn on the transmitter and
 max-out the throttle.
 
-2. Plug in the Teensy board.  If it is receiving full throttle correctly,
+2. Plug in the board.  If it is receiving full throttle correctly,
 the LED will turn on.
 
 3. Plug in the battery.  You should immediately hear the 
@@ -102,3 +102,8 @@ you can use to test your setup after calibrating, and to deploy in an actual
 project.  As with the calibration sketch, you should <b>make sure to remove an
 propellers before running the sketch</b>, and un-comment the 
 ```#include``` lines at the top of the sketch to match your input device.
+
+## Supported boards
+
+I have tested this library on a Teensy4.0 and TinyPICO board, but it should
+work on any Arduino-compatible board with a sufficient clock rate.
