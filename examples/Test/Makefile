@@ -2,16 +2,16 @@ SKETCH = Test
 
 PORT = /dev/ttyACM0
 
-BOARD = teensy:avr:teensy40
+FQBN = teensy:avr:teensy40
 
 build:
-	arduino-cli compile  --libraries ../..,../../.. --fqbn $(BOARD) $(SKETCH).ino
+	arduino-cli compile  --libraries ../..,../../.. --fqbn $(FQBN) $(SKETCH).ino
 
 flash:
-	arduino-cli upload -p $(PORT) --fqbn $(BOARD) .
+	arduino-cli upload -p $(PORT) --fqbn $(FQBN) .
 
 upload:
-	arduino-cli upload -p $(PORT) --fqbn $(BOARD) .
+	arduino-cli upload -p $(PORT) --fqbn $(FQBN) .
 
 edit:
 	vim $(SKETCH).ino
