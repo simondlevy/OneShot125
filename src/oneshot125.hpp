@@ -28,17 +28,13 @@ class OneShot125 {
 
     public:
 
-        OneShot125(
-                const std::vector<uint8_t> pins, 
-                const uint32_t loopFrequency=2000)
+        OneShot125( const std::vector<uint8_t> pins)
         {
             for (auto pin : pins) {
                 _pins.push_back(pin);
                 _pulseWidths.push_back(0);
                 _flags.push_back(false);
             }
-
-            _loopFrequency = loopFrequency;
         }
 
         void arm(void) 
@@ -95,6 +91,4 @@ class OneShot125 {
         std::vector<uint8_t> _pulseWidths;
 
         std::vector<bool> _flags;
-
-        uint8_t _loopFrequency;
 };

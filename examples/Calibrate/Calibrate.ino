@@ -20,13 +20,13 @@
 #include <oneshot125.hpp>
 #include <vector>
 
-#define RX_SERIAL Serial2
+#define RX_SERIAL Serial1
 
 // Un-comment on of these:
 #include "input_dsmx.hpp"
 //#include "input_sbus.hpp"
 
-static const std::vector<uint8_t> MOTOR_PINS = { 2, 3, 4, 5 };
+const std::vector<uint8_t> MOTOR_PINS = { 4, 3, 6, 5 };
 
 static const float TOLERANCE = 0.01;
 

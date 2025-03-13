@@ -44,7 +44,7 @@ static float inputGet(void)
 
         float values[DSMX_CHANNELS] = {};
 
-        rx.getChannelValues(values, DSMX_CHANNELS);
+        rx.getChannelValuesMlp6Dsm(values);
 
         throttle = (values[0] + 1) / 2;
 

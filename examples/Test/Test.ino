@@ -20,14 +20,14 @@
 #include <oneshot125.hpp>
 #include <vector>
 
-#define RX_SERIAL Serial2
+#define RX_SERIAL Serial1
 
 // Un-comment on of these:
-//#include "input_dsmx.hpp"
+#include "input_dsmx.hpp"
 //#include "input_pot.hpp"
-#include "input_sbus.hpp"
+//#include "input_sbus.hpp"
 
-static const std::vector<uint8_t> PINS = {0};
+static const std::vector<uint8_t> PINS = {4, 3, 6, 5};
 
 static auto motors = OneShot125(PINS);
 
@@ -46,6 +46,8 @@ void loop()
 
     motors.set(0, pulseWidth);
     motors.set(1, pulseWidth);
+    motors.set(2, pulseWidth);
+    motors.set(3, pulseWidth);
 
     motors.run();
 }
