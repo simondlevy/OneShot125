@@ -24,7 +24,8 @@
 
 // Un-comment on of these:
 //#include "input_dsmx.hpp"
-#include "input_sbus.hpp"
+//#include "input_sbus.hpp"
+#include "input_keyboard.hpp"
 
 // static const std::vector<uint8_t> PINS = {4, 3, 6, 5};
 static const std::vector<uint8_t> PINS = {2};
