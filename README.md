@@ -105,5 +105,5 @@ propellers before running the sketch</b>, and un-comment the
 
 ## Supported boards
 
-I have tested this library on a Teensy4.0 and TinyPICO board, but it should
-work on any Arduino-compatible board with a sufficient clock rate.
+I have tested this library on a Teensy4.0, TinyPICO (ESP32), and STM32F405 board,
+but it should work on any Arduino-compatible board with a sufficient clock rate.

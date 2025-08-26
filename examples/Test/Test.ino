@@ -28,7 +28,7 @@
 #include "input_keyboard.hpp"
 
 // static const std::vector<uint8_t> PINS = {4, 3, 6, 5};
-static const std::vector<uint8_t> PINS = {2};
+static const std::vector<uint8_t> PINS = {PB12};
 
 static auto motors = OneShot125(PINS);
 
