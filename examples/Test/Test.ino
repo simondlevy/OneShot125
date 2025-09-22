@@ -27,7 +27,7 @@
 //#include "input_sbus.hpp"
 #include "input_keyboard.hpp"
 
-static const std::vector<uint8_t> PINS = {2, 23, 14, 9};
+static const std::vector<uint8_t> PINS = {PB8, PC11, PC12, PB5};
 
 static auto motors = OneShot125(PINS);
 
@@ -44,10 +44,9 @@ void loop()
 {
     auto pulseWidth = (uint8_t)(125 * (inputGet() + 1));
 
-    motors.set(0, pulseWidth);
-    motors.set(1, pulseWidth);
-    motors.set(2, pulseWidth);
-    motors.set(3, pulseWidth);
+    for (uint8_t k=0; k<PINS.size(); ++k) {
+        motors.set(k, pulseWidth);
+    }
 
     motors.run();
 }
