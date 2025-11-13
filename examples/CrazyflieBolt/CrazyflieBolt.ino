@@ -27,9 +27,16 @@
 //#include "input_sbus.hpp"
 #include "input_keyboard.hpp"
 
-static const std::vector<uint8_t> PINS = {PB14, PB1, PC1, PB3};
+static const std::vector<uint8_t> MOTOR_PINS = {PA1, PB11, PA15, PB10};
+static const std::vector<uint8_t> POWER_SWITCH_PINS = {PA0, PB12, PC8, PC15};
 
-static auto motors = OneShot125(PINS);
+static auto motors = OneShot125(MOTOR_PINS);
+
+static void enableMotor(const uint8_t id)
+{
+    pinMode(POWER_SWITCH_PINS[id], OUTPUT);
+    digitalWrite(POWER_SWITCH_PINS[id], HIGH);
+}
 
 void setup() 
 {
@@ -37,6 +44,11 @@ void setup()
 
     inputInit();
 
+    enableMotor(0);
+    enableMotor(1);
+    enableMotor(2);
+    enableMotor(3);
+ 
     motors.arm(); 
 }
 
@@ -44,7 +56,7 @@ void loop()
 {
     auto pulseWidth = (uint8_t)(125 * (inputGet() + 1));
 
-    for (uint8_t k=0; k<PINS.size(); ++k) {
+    for (uint8_t k=0; k<MOTOR_PINS.size(); ++k) {
         motors.set(k, pulseWidth);
     }
 
