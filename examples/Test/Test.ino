@@ -27,7 +27,7 @@
 //#include "input_sbus.hpp"
 #include "input_keyboard.hpp"
 
-static const std::vector<uint8_t> PINS = {PB8, PC11, PC12, PB5};
+static const std::vector<uint8_t> PINS = {PA2, PA3, PC12, PB5};
 
 static auto motors = OneShot125(PINS);
 
