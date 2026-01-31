@@ -1,5 +1,7 @@
 /*
-   Test ESCs.  Make sure to run Calibrate sketch first
+   Test ESCs.  MAKE SURE PROPELLERS ARE REMOVED!!!
+
+   May want to run Calibrate sketch first
 
    This file is part of OneShot125.
 
